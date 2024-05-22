@@ -4,7 +4,6 @@ import os
 from tkinter import Tk, Label, Entry, Button, StringVar, Frame
 import customtkinter
 from datetime import date, datetime
-from tinydb import TinyDB, Query
 
 # Blacklisted bot names not to count for chat charity
 blacklisted_bots = ['streamelements', 'moobot', 'nightbot']
@@ -76,6 +75,8 @@ bot = twitchio.Client(
 )
 
 def write_log(username, sub_level, sub_type):
+    if not os.path.exists('logging'): # Check for existing log dir and create if it doesn't exist, before writing logs
+        os.makedirs('logging')
     short_date = date.today().strftime("%m-%d-%y")
     long_date = datetime.now().strftime("%m/%d/%Y %H:%M:%S")
     with open(f'logging/{short_date}.log', 'a+', encoding="utf-8") as olog:
