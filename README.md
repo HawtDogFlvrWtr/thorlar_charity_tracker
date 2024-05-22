@@ -11,15 +11,15 @@ A basic charity tracking app that connects to twitch via an oauth key, and captu
 - Configure OBS to read the ```obs_charity_rounded.txt``` within this runtime folder. It will generate exactly what you need to display on stream. (Ex. Raised: $158 117)
     - On the scene you want to add it, click + in ```Sources```. 
     - Select ```Text (GDI+)```
-    ![Plus Image](https://github.com/HawtDogFlvrWtr/thorlar_charity_tracker/blob/main/git_images/plus_menu.png)
+        - ![Plus Image](https://github.com/HawtDogFlvrWtr/thorlar_charity_tracker/blob/main/git_images/plus_menu.png)
     - Add a name for the source
-    ![Name Source](https://github.com/HawtDogFlvrWtr/thorlar_charity_tracker/blob/main/git_images/create_select_source.png)
+        - ![Name Source](https://github.com/HawtDogFlvrWtr/thorlar_charity_tracker/blob/main/git_images/create_select_source.png)
     - Select the font and Size you want. I suggest setting it to 72 and shrinking to the size you want
     - Click the ```Read from file``` box and select the file ```obs_charity_rounded.txt``` in your tracker folder.
     - Select the colors and any transform you want and then click OK
-    ![Change Settings](https://github.com/HawtDogFlvrWtr/thorlar_charity_tracker/blob/main/git_images/properties_for.png)
+        - ![Change Settings](https://github.com/HawtDogFlvrWtr/thorlar_charity_tracker/blob/main/git_images/properties_for.png)
     - Shrink the box on the scene above and put it where you want it to. The text will update as the tracker updates the file.
-    ![Change Settings](https://github.com/HawtDogFlvrWtr/thorlar_charity_tracker/blob/main/git_images/move_text.png)
+        - ![Change Settings](https://github.com/HawtDogFlvrWtr/thorlar_charity_tracker/blob/main/git_images/move_text.png)
 
 - Thats it!
 
