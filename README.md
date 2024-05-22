@@ -8,6 +8,15 @@ A basic charity tracking app that connects to twitch via an oauth key, and captu
 - Run ```pip install twitchio configparser tkinter customtkinter``` to download imports that we need and aren't included with python3 out of the box
 - Copy the config.ini.example file to config.ini and change the channel and twitch_token settings to your appropriate settings (unless you want to when you run the app).
 - Run the app with ```python3 .\thorlar_charity_tracker.py```. On each start the config screen pops up to allow you to change the config file within the app before running.
+- Configure OBS to read the ```obs_charity_rounded.txt``` within this runtime folder. It will generate exactly what you need to display on stream. (Ex. Raised: $158 117)
+    - On the scene you want to add it, click + in ```Sources```. 
+    - Select ```Text (GDI+)```
+    - Add a name for the source
+    - Select the font and Size you want. I suggest setting it to 72 and shrinking to the size you want
+    - Click the ```Read from file``` box and select the file ```obs_charity_rounded.txt``` in your tracker folder.
+    - Select the colors and any transform you want and then click OK
+    - Shrink the box on the scene above and put it where you want it to. The text will update as the tracker updates the file.
+
 - Thats it!
 
 ## TODO:
