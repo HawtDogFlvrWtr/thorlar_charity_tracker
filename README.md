@@ -26,6 +26,9 @@ A basic charity tracking app that connects to twitch via an oauth key, and captu
 ## TODO:
 - Convert the script to an executable that just "works" with a doubleclick
 - Add the ability to update the config while the app is running instead of restarting, by adding a taskbar icon that can be clicked
-- Research and determine if I can display the test in a way that the string rotates the numbers up when there is an update
+- ~~Research and determine if I can display the test in a way that the string rotates the numbers up when there is an update~~
 - Figure out how best to add followers to the charity as the twitch documentation says you need a webserver with ssl and a true domain name, that it can call back to when there is a follower, instead of providing an event like they do everything else <sadface>.
+    - This will likely be a csv export at the end of an episode that I need to build an ingest script for
+- Track watch time per episode
+    - This will likely be a csv export at the end of an episode that I need to build an ingest script for
 - Add tinydb for tracking everything in a "database" for later correlation

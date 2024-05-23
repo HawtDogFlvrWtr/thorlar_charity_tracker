@@ -1,0 +1,47 @@
+<html>
+    <head>
+        <!-- Odometr includes -->
+        <link rel="stylesheet" href="css/odometer-theme-default.css" />
+        <script src="js/jquery.min.js"></script>
+        <script src="js/odometer.js"></script>
+
+
+        <!-- Extra styles for this example -->
+        <style>
+        .odometer {
+            font-size: 75px;
+            color:#FF55FF;
+        }
+        .odometer-inside:before {
+            content: "raised: $";
+            font-size: 65px;
+            padding-top: 1px;
+        }
+        </style>
+    </head>
+    <body>
+        <div id="odometer" class="odometer"></div>
+    </body>
+    <script>
+        var initial_value = 0;
+
+        // Initial pull of file
+        jQuery.get('charity_amount.txt',{ "_": $.now() }, function(data) {
+            initial_value = data;
+        })
+        var el = document.querySelector('.odometer');
+        od = new Odometer({
+            el: el,
+            // Format to have space between thousands
+            format: '( ddd)',
+        });
+
+        // Update every 5 seconds
+        window.setInterval(function(){
+            jQuery.get('charity_amount.txt',{ "_": $.now() }, function(data) {
+                od.update(data);
+            })
+        }, 5000);
+
+    </script>
+</html>
