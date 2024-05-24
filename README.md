@@ -9,7 +9,7 @@ A basic charity tracking app that connects to twitch via an oauth key, and captu
 - Copy the config.ini.example file to config.ini and change the channel and twitch_token settings to your appropriate settings (unless you want to when you run the app).
 - Run the app with ```python3 .\thorlar_charity_tracker.py```. On each start the config screen pops up to allow you to change the config file within the app before running.
 
-## Methods to display in OBS
+## OBS Text Source (no number rotate)
 - Configure OBS to read the ```obs_charity_rounded.txt``` within this runtime folder. It will generate exactly what you need to display on stream. (Ex. Raised: $158 117)
     - On the scene you want to add it, click + in ```Sources```. 
     - Select ```Text (GDI+)```
@@ -23,6 +23,7 @@ A basic charity tracking app that connects to twitch via an oauth key, and captu
     - Shrink the box on the scene above and put it where you want it to. The text will update as the tracker updates the file.
         - ![Change Settings](https://github.com/HawtDogFlvrWtr/thorlar_charity_tracker/blob/main/git_images/move_text.png)
 
+## OBS Browser source (with number rotate)
 - Configure OBS Browser Source to read ```obs_charity_rounded.html``` within the runtime folder. It contains javascript that will rotate the text real fancy like.
     - On the scene you want to add it, click + in ```sources```.
     - Select ```Browser```
@@ -34,7 +35,6 @@ A basic charity tracking app that connects to twitch via an oauth key, and captu
         - ![Change Settings](https://github.com/HawtDogFlvrWtr/thorlar_charity_tracker/blob/main/git_images/properties_for_browser.png)
     - Resize the web display on screen to fit exactly where you need it to.
         - ![Change Settings](https://github.com/HawtDogFlvrWtr/thorlar_charity_tracker/blob/main/git_images/move_shrink_text.png)
-- Thats it!
 
 ## TODO:
 - Convert the script to an executable that just "works" with a doubleclick
