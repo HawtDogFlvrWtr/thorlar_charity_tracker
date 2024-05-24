@@ -4,11 +4,15 @@ import os
 from tkinter import Tk, Label, Entry, Button, StringVar, Frame
 import customtkinter
 from datetime import date, datetime
+from tinydb import TinyDB, Query
 
 # Blacklisted bot names not to count for chat charity
 blacklisted_bots = ['streamelements', 'moobot', 'nightbot']
 sub_msg_ids = ['sub', 'resub', 'subgift', 'giftpaidupgrade', 'anongiftpaidupgrade']
 sub_dictionary = {'Prime': 'Prime', '1000': 'Tier1', '2000': 'Tier2', '3000': 'Tier3'}
+database = TinyDB('thorlar_charity_tracker.json', indent=4)
+database.default_table_name = 'daily_stats'
+daily_db = Query()
 
 # Create and initialize the configuration
 config = configparser.ConfigParser()
@@ -39,6 +43,7 @@ class BotConfigGUI:
         with open('config.ini', 'w') as configfile:
             config.write(configfile)
         self.master.destroy()
+
 
 # Initialize and display the bot configuration GUI
 root = customtkinter.CTk()
@@ -89,8 +94,25 @@ def write_charity(last_charity_amount, c_type):
     global obs_rounded_amount_file
     # Update Charity
     print(f'{c_type.title()} Charity!: {last_charity_amount}')
+    short_date = date.today().strftime("%a %b %d %Y")
+
+    find_record = database.search(daily_db.date == short_date)
+    if len(find_record) > 0:
+        for record in find_record: # Iterate over records (should only be 1 but...always safer)
+            if c_type in record:
+                c_type_value = record[c_type] + 1
+            else:
+                c_type_value = 1
+            # Increment record type and update charity amount
+            database.upsert({c_type: c_type_value, 'charity_value': last_charity_amount}, daily_db.date == short_date)
+    else: # A record for this date doesn't exist
+        database.insert({c_type: 1, 'charity_value': last_charity_amount}, daily_db.date == short_date)
+
+    # Update files for OBS
     with open(charity_amount_file, 'w') as ocharity_file:
         ocharity_file.write(str(last_charity_amount))
+
+    # OBS Static text file
     with open(obs_rounded_amount_file, 'w') as oobd_charity_file:
         rounded_value = f"{round(last_charity_amount):,}".replace(',', ' ') # Put in Thorlar format of space betwen thousands
         oobd_charity_file.write(f"Raised: ${rounded_value}")
@@ -104,14 +126,13 @@ async def ping(ctx):
 async def event_message(message):
     global last_charity_amount
     global charity_amount_file
-        
     if hasattr(message.author, 'name') and message.author.name.lower() not in blacklisted_bots:
         #print('New Message:', message.author.name, message.content)
         if 'first-msg' in message.tags and message.tags['first-msg'] == 1:
-            write_charity(last_charity_amount, "new chatter message")
+            write_charity(last_charity_amount, "new-chatter-messages")
             last_charity_amount = round(last_charity_amount + first_message_price, 2)
         else:
-            write_charity(last_charity_amount, "message")
+            write_charity(last_charity_amount, "messages")
             last_charity_amount = round(last_charity_amount + message_price, 2)
         write_log(message.author.name, ':', message.content)
 
@@ -121,15 +142,19 @@ async def event_raw_usernotice(channel, tags):
     global charity_amount_file
     if 'msg-param-sub-plan' in tags and 'msg-id' in tags and tags['msg-id'] in sub_msg_ids:
         if tags['msg-param-sub-plan'] == 'Prime':
+            plan_type = 'prime'
             last_charity_amount = round(last_charity_amount + subscribe_tier1_price, 2)
         elif tags['msg-param-sub-plan'] == '1000':
+            plan_type = 'tier1'
             last_charity_amount = round(last_charity_amount + subscribe_tier1_price, 2)
         elif tags['msg-param-sub-plan'] == '2000':
+            plan_type = 'tier2'
             last_charity_amount = round(last_charity_amount + subscribe_tier2_price, 2)
         elif tags['msg-param-sub-plan'] == '3000':
+            plan_type = 'tier3'
             last_charity_amount = round(last_charity_amount + subscribe_tier3_price, 2)
 
-        write_charity(last_charity_amount, tags['msg-id'])
+        write_charity(last_charity_amount, f'{tags["msg-id"]}_{plan_type}')
         write_log(tags['login'], sub_dictionary[tags['msg-param-sub-plan']], tags['msg-id'])
 
 bot.run()

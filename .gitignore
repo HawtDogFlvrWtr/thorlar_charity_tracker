@@ -1,4 +1,5 @@
 config.ini
 obs_charity_rounded.txt
 charity_amount.txt
+thorlar_charity_tracker.json
 logging/*

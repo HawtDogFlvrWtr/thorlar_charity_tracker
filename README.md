@@ -31,4 +31,5 @@ A basic charity tracking app that connects to twitch via an oauth key, and captu
     - This will likely be a csv export at the end of an episode that I need to build an ingest script for
 - Track watch time per episode
     - This will likely be a csv export at the end of an episode that I need to build an ingest script for
-- Add tinydb for tracking everything in a "database" for later correlation
+- ~~Add tinydb for tracking everything in a "database" for later correlation~~
+- ~~Build a database rebuild function based on chat logs, in case of catastrophe~~
