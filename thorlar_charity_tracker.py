@@ -106,7 +106,7 @@ def write_charity(last_charity_amount, c_type):
             # Increment record type and update charity amount
             database.upsert({c_type: c_type_value, 'charity_value': last_charity_amount}, daily_db.date == short_date)
     else: # A record for this date doesn't exist
-        database.insert({c_type: 1, 'charity_value': last_charity_amount}, daily_db.date == short_date)
+        database.insert({c_type: 1, 'charity_value': last_charity_amount, 'date': short_date})
 
     # Update files for OBS
     with open(charity_amount_file, 'w') as ocharity_file:
