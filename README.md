@@ -8,6 +8,8 @@ A basic charity tracking app that connects to twitch via an oauth key, and captu
 - Run ```pip install twitchio configparser tkinter customtkinter``` to download imports that we need and aren't included with python3 out of the box
 - Copy the config.ini.example file to config.ini and change the channel and twitch_token settings to your appropriate settings (unless you want to when you run the app).
 - Run the app with ```python3 .\thorlar_charity_tracker.py```. On each start the config screen pops up to allow you to change the config file within the app before running.
+
+## Methods to display in OBS
 - Configure OBS to read the ```obs_charity_rounded.txt``` within this runtime folder. It will generate exactly what you need to display on stream. (Ex. Raised: $158 117)
     - On the scene you want to add it, click + in ```Sources```. 
     - Select ```Text (GDI+)```
@@ -21,6 +23,17 @@ A basic charity tracking app that connects to twitch via an oauth key, and captu
     - Shrink the box on the scene above and put it where you want it to. The text will update as the tracker updates the file.
         - ![Change Settings](https://github.com/HawtDogFlvrWtr/thorlar_charity_tracker/blob/main/git_images/move_text.png)
 
+- Configure OBS Browser Source to read ```obs_charity_rounded.html``` within the runtime folder. It contains javascript that will rotate the text real fancy like.
+    - On the scene you want to add it, click + in ```sources```.
+    - Select ```Browser```
+        - ![Plus Image](https://github.com/HawtDogFlvrWtr/thorlar_charity_tracker/blob/main/git_images/plus_menu_browser.png)
+    - Add a name for the source
+        - ![Name Source](https://github.com/HawtDogFlvrWtr/thorlar_charity_tracker/blob/main/git_images/create_select_source.png)
+    - Click the ```Local file``` box and select the file ```obs_charity_rounded.html``` in your tracker folder.
+    - Select the box size you want but 550x80 is optimal, then click Ok.
+        - ![Change Settings](https://github.com/HawtDogFlvrWtr/thorlar_charity_tracker/blob/main/git_images/properties_for_browser.png)
+    - Resize the web display on screen to fit exactly where you need it to.
+        - ![Change Settings](https://github.com/HawtDogFlvrWtr/thorlar_charity_tracker/blob/main/git_images/move_shrink_text.png)
 - Thats it!
 
 ## TODO:
