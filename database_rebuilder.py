@@ -4,10 +4,21 @@ import glob
 import os
 from datetime import datetime
 import configparser
+import argparse
+import sys
+
+parser = argparse.ArgumentParser()
+parser.add_argument('-c', '--current_charity', help="The starting charity to add upon for rebuilding the database", required=True)
+args = parser.parse_args()
+charity = args.current_charity
+
 
 sub_msg_ids = ['sub', 'resub', 'subgift', 'giftpaidupgrade', 'anongiftpaidupgrade']
 sub_dictionary = ['prime', 'tier1', 'tier2', 'tier3']
-charity = 158062
+
+if os.path.isfile('thorlar_charity_tracker.json'):
+    print("thorlar_charity_tracker.json already exists. Please back it up and ensure the logs you want to rebuild the database with are in the logging folder.")
+    sys.exit(1)
 
 database = TinyDB('thorlar_charity_tracker.json', indent=4)
 database.default_table_name = 'daily_stats'
