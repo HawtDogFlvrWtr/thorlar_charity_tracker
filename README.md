@@ -5,8 +5,10 @@ A basic charity tracking app that connects to twitch via an oauth key, and captu
 ## How to run the app
 - Download python3 installer to your windows machine and install it (https://www.python.org/ftp/python/3.12.3/python-3.12.3-amd64.exe)
 - Open a powershell window and cd to the folder with the thorlar_charity_tracker.py file
-- Run ```pip install twitchio configparser tkinter customtkinter``` to download imports that we need and aren't included with python3 out of the box
+- Run ```<python>/<install>/<path>/pip install twitchio configparser tkinter customtkinter``` to download imports that we need and aren't included with python3 out of the box
+    - The install path is likely ```c:\users\<username>\appdata\local\programs\python\python312\scripts\``` if you used the install exe above.
 - Copy the config.ini.example file to config.ini and change the channel and twitch_token settings to your appropriate settings (unless you want to when you run the app).
+- Generate an oAuth token for your bot by visiting ```https://twitchapps.com/tmi/``` and selecting connect. After your connection is made, save the string it provides (ex. oauth:blahblahblahblah). You need to use ```blahblahblahblah``` in your config.ini as the twitch_token
 - Run the app with ```python3 .\thorlar_charity_tracker.py```. On each start the config screen pops up to allow you to change the config file within the app before running.
 
 ## OBS Text Source (no number rotate)
