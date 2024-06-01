@@ -7,8 +7,15 @@ A basic charity tracking app that connects to twitch via an oauth key, and captu
 - Open a powershell window and cd to the folder with the thorlar_charity_tracker.py file
 - Run ```pip install twitchio configparser Tk interface customtkinter tinydb``` to download imports that we need and aren't included with python3 out of the box
 - Copy the config.ini.example file to config.ini and change the channel and twitch_token settings to your appropriate settings (unless you want to when you run the app).
-- Generate an oAuth token for your bot by visiting https://twitchapps.com/tmi/ and selecting connect. After your connection is made, save the string it provides (ex. oauth:blahblahblahblah). You need to use ```blahblahblahblah``` in your config.ini as the twitch_token
-- Run the app with ```python3 .\thorlar_charity_tracker.py```. On each start the config screen pops up to allow you to change the config file within the app before running.
+- Generate an oAuth token for your bot by visiting https://twitchtokengenerator.com/, select ```Custom Scope Token``` and enable the following scopes
+    - channel:read:redemptions
+    - moderator:read:followers
+    - chat:read
+- Select the green ```Generate Token!```
+- Click ```Authorize``` button on the Twitch screen
+- Copy the form labeled ```ACCESS TOKEN``` as this is our oAuth token needed in the config.ini
+- Run the app with ```python3 .\thorlar_charity_tracker.py```.
+- Configure the bot how you like, ensuring you enter your copied ```ACCESS TOKEN``` in the column called ```Twitch Token```
 
 ## OBS Text Source (no number rotate)
 - Configure OBS to read the ```obs_charity_rounded.txt``` within this runtime folder. It will generate exactly what you need to display on stream. (Ex. Raised: $158 117)
