@@ -180,8 +180,12 @@ async def check_live():
     global is_live
     fetch_stream = await bot.fetch_streams(user_logins=config['TwitchBot']['channels'].split(','))
     if len(fetch_stream) > 0:
+        if is_live == False:
+            print("Stream has started. Enabling chats for charity.")
         is_live = True
     else:
+        if is_live == True:
+            print("Stream has ended. Disabling chats for charity")
         is_live = False
 
 async def main():
