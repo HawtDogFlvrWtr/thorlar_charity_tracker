@@ -13,7 +13,7 @@ A basic charity tracking app that connects to twitch via an oauth key, and captu
     - chat:read
 - Select the green ```Generate Token!```
 - Click ```Authorize``` button on the Twitch screen
-- Copy the form labeled ```ACCESS TOKEN``` as this is our oAuth token needed in the config.ini
+- Copy the key labeled ```ACCESS TOKEN``` as this is our oAuth token needed in the config.ini
 - Run the app with ```python3 .\thorlar_charity_tracker.py```.
 - Configure the bot how you like, ensuring you enter your copied ```ACCESS TOKEN``` in the column called ```Twitch Token```
 
