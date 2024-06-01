@@ -38,12 +38,15 @@
             format: '( ddd)',
         });
 
-        // Update every 5 seconds
-        window.setInterval(function(){
+        function update_ticker() {
             jQuery.get('charity_amount.txt',{ "_": $.now() }, function(data) {
                 od.update(data);
             })
+        }
+        // Update every 5 seconds
+        window.setInterval(function(){
+            update_ticker()
         }, 5000);
-
+        update_ticker() // Launch it once
     </script>
 </html>
