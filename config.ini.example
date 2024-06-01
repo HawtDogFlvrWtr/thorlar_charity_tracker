@@ -1,13 +1,15 @@
 [TwitchBot]
 twitch_token = <twitch oauth key>
-# More than one channel can be tracked at a time by adding a comma between each. This allows you to do group charity live streams with friends without them having to track it!
-channels = thorlar 
-message_price = .01
-follow_price = .01
-first_message_price = .02
+channels = thorlar
+channel_id = 35740817
+message_price = .001
+first_message_price = .002
+follow_price = .001
 subscribe_tier1_price = 1
 subscribe_tier2_price = 2
 subscribe_tier3_price = 10
+raid_in_price = .001
+raid_out_price = .001
 charity_amount_file = charity_amount.txt
 obs_rounded_amount_file = obs_charity_rounded.txt
 
