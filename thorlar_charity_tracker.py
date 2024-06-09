@@ -137,10 +137,13 @@ async def event_pubsub_channel_points(event: pubsub.PubSubChannelPointsMessage):
 @bot.event()
 async def event_pubsub_community_points(event: pubsub.PubSubCommunityPointsMessage):
     global last_charity_amount
-    community_charity_amount = community_points_price * int(event.amount)
-    last_charity_amount = last_charity_amount + community_charity_amount
-    write_charity(last_charity_amount, f'community_points', int(event.amount))
-    write_log(event.user_display_name, f'community_points', event.amount) #<username> community_points <amount>
+    try: # Catch if its a normal channel point redeem
+        community_charity_amount = community_points_price * int(event.amount)
+        last_charity_amount = last_charity_amount + community_charity_amount
+        write_charity(last_charity_amount, f'community_points', int(event.amount))
+        write_log(event.user_display_name, f'community_points', event.amount) #<username> community_points <amount>
+    except:
+        pass
 
 @bot.event()
 async def event_message(message):
