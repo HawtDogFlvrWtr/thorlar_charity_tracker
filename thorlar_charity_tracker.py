@@ -11,7 +11,7 @@ import time
 
 # Blacklisted bot names not to count for chat charity
 blacklisted_bots = ['streamelements', 'moobot', 'nightbot']
-sub_msg_ids = ['sub', 'resub', 'subgift', 'giftpaidupgrade', 'anongiftpaidupgrade', 'submysterygift']
+sub_msg_ids = ['sub', 'resub', 'subgift', 'giftpaidupgrade', 'anongiftpaidupgrade']
 sub_dictionary = {'Prime': 'Prime', '1000': 'Tier1', '2000': 'Tier2', '3000': 'Tier3'}
 database = TinyDB('thorlar_charity_tracker.json', indent=4)
 database.default_table_name = 'daily_stats'
@@ -72,6 +72,7 @@ else:
 message_price = float(config['TwitchBot']['message_price'])
 follow_price = float(config['TwitchBot']['follow_price'])
 first_message_price = float(config['TwitchBot']['first_message_price'])
+community_points_price = float(config['TwitchBot']['community_points_price'])
 subscribe_tier1_price = float(config['TwitchBot']['subscribe_tier1_price'])
 subscribe_tier2_price = float(config['TwitchBot']['subscribe_tier2_price'])
 subscribe_tier3_price = float(config['TwitchBot']['subscribe_tier3_price'])
@@ -134,6 +135,14 @@ async def event_pubsub_channel_points(event: pubsub.PubSubChannelPointsMessage):
     print(f"Channel Point Redeem: REvent-UserId: {event.user.id}, REvent-UserName: {event.user.name}, REvent-Input: {event.input}, Reward-Name: {event.reward.title}, Reward-ID: {event.reward.id}, Reward-Cost: {event.reward.cost}, Reward-Prompt: {event.reward.prompt}")
 
 @bot.event()
+async def event_pubsub_community_points(event: pubsub.PubSubCommunityPointsMessage):
+    global last_charity_amount
+    community_charity_amount = community_points_price * int(event.amount)
+    last_charity_amount = last_charity_amount + community_charity_amount
+    write_charity(last_charity_amount, f'community_points', int(event.amount))
+    write_log(event.user_display_name, f'community_points', event.amount) #<username> community_points <amount>
+
+@bot.event()
 async def event_message(message):
     global last_charity_amount
     global charity_amount_file
@@ -190,7 +199,8 @@ async def check_live():
 
 async def main():
     topics = [
-        pubsub.channel_points(config['TwitchBot']['twitch_token'])[int(config['TwitchBot']['channel_id'])],
+        #pubsub.channel_points(config['TwitchBot']['twitch_token'])[int(config['TwitchBot']['channel_id'])],
+        pubsub.community_points(config['TwitchBot']['twitch_token'])[int(config['TwitchBot']['channel_id'])],
     ]
     check_live.start()
     await bot.pubsub.subscribe_topics(topics)

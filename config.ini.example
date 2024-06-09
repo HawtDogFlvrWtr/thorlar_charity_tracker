@@ -4,6 +4,7 @@ channels = thorlar
 channel_id = 35740817
 message_price = .001
 first_message_price = .002
+community_points_price = .00001
 follow_price = .001
 subscribe_tier1_price = 1
 subscribe_tier2_price = 2
